@@ -3,10 +3,12 @@
     "version": "1.0.0",
     "description": "Challenger weekend",
     "main": "index.js",
+    "type": "module",
     "scripts": {
-        "test": "jest --watch --coverage",
+        "test": "jest --watchAll --coverage",
         "prepare": "husky install",
-        "scriptname": "cmd"
+        "scriptname": "cmd",
+        "lint": "eslint"
     },
     "author": "Alina",
     "license": "ISC",
