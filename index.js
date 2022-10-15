@@ -1,4 +1,17 @@
 const board = [
+    [true, true, false, false, false, false, false, false, false, false],
+    [true, true, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, true, true, true, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, true, false, false],
+    [false, false, false, false, false, false, true, false, false, false],
+    [false, false, false, false, false, false, false, true, false, false],
+];
+
+const boardTwo = [
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
@@ -12,7 +25,9 @@ const board = [
 ];
 
 const contiguous = (y, x) => {
-    if ((y = 0) && (x = 0)) {
+    let count = 0;
+
+    if (y === 0 && x === 0) {
         if (board[y][x + 1]) {
             count++;
         }
@@ -22,9 +37,10 @@ const contiguous = (y, x) => {
         if (board[y + 1][x + 1]) {
             count++;
         }
+        return count;
     }
 
-    if ((y = 0) && (x = 0)) {
+    if (y === 0 && x === 9) {
         if (board[y][x - 1]) {
             count++;
         }
@@ -34,9 +50,10 @@ const contiguous = (y, x) => {
         if (board[y + 1][x]) {
             count++;
         }
+        return count;
     }
 
-    if ((y = 0) && (x = 0)) {
+    if (y === 9 && x === 0) {
         if (board[y - 1][x]) {
             count++;
         }
@@ -46,9 +63,10 @@ const contiguous = (y, x) => {
         if (board[y][x + 1]) {
             count++;
         }
+        return count;
     }
 
-    if ((y = 0) && (x = 0)) {
+    if (y === 9 && x === 9) {
         if (board[y - 1][x]) {
             count++;
         }
@@ -58,72 +76,151 @@ const contiguous = (y, x) => {
         if (board[y][x - 1]) {
             count++;
         }
+        return count;
     }
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[i].length; j++) {
-            let count = 0;
-            if (board[y - 1][x]) {
-                count++;
-            }
-            if (board[y - 1][x + 1]) {
-                count++;
-            }
-            if (board[y][x + 1]) {
-                count++;
-            }
-            if (board[y + 1][x + 1]) {
-                count++;
-            }
-            if (board[y + 1][x]) {
-                count++;
-            }
-            if (board[y + 1][x - 1]) {
-                count++;
-            }
-            if (board[y][x - 1]) {
-                count++;
-            }
-            if (board[y - 1][x - 1]) {
-                count++;
-            }
+
+    if (y === 0) {
+        if (board[y][x + 1]) {
+            count++;
         }
+        if (board[y + 1][x + 1]) {
+            count++;
+        }
+        if (board[y + 1][x]) {
+            count++;
+        }
+        if (board[y + 1][x - 1]) {
+            count++;
+        }
+        if (board[y][x - 1]) {
+            count++;
+        }
+        return count;
     }
+    if (x === 0) {
+        if (board[y - 1][x]) {
+            count++;
+        }
+        if (board[y - 1][x + 1]) {
+            count++;
+        }
+        if (board[y][x + 1]) {
+            count++;
+        }
+        if (board[y + 1][x + 1]) {
+            count++;
+        }
+        if (board[y + 1][x]) {
+            count++;
+        }
+        return count;
+    }
+    if (x === 9) {
+        if (board[y - 1][x]) {
+            count++;
+        }
+        if (board[y + 1][x]) {
+            count++;
+        }
+        if (board[y + 1][x - 1]) {
+            count++;
+        }
+        if (board[y][x - 1]) {
+            count++;
+        }
+        if (board[y - 1][x - 1]) {
+            count++;
+        }
+
+        return count;
+    }
+    if (y === 9) {
+        if (board[y - 1][x]) {
+            count++;
+        }
+        if (board[y - 1][x + 1]) {
+            count++;
+        }
+        if (board[y][x + 1]) {
+            count++;
+        }
+        if (board[y][x - 1]) {
+            count++;
+        }
+        if (board[y - 1][x - 1]) {
+            count++;
+        }
+
+        return count;
+    }
+    if (board[y - 1][x]) {
+        count++;
+    }
+    if (board[y - 1][x + 1]) {
+        count++;
+    }
+    if (board[y][x + 1]) {
+        count++;
+    }
+    if (board[y + 1][x + 1]) {
+        count++;
+    }
+    if (board[y + 1][x]) {
+        count++;
+    }
+    if (board[y + 1][x - 1]) {
+        count++;
+    }
+    if (board[y][x - 1]) {
+        count++;
+    }
+    if (board[y - 1][x - 1]) {
+        count++;
+    }
+
     return count;
 };
-
-const loneliness = () => {
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[0].length; j++) {
-            let cellsBeside = contiguous(i, j);
-            if (cellsBeside < 2) {
-                board[i][j] = false;
-            }
+// Cuando la celda está viva
+const gameOfLife = (y, x) => {
+    let cellsBeside = contiguous(y, x);
+    if (board[y][x] === true) {
+        if (cellsBeside < 2) {
+            boardTwo[y][x] = false;
+        }
+        if (cellsBeside > 3) {
+            boardTwo[y][x] = false;
+        }
+    }
+    // Cuando la celda está muerta
+    else {
+        if (cellsBeside === 3) {
+            boardTwo[y][x] = true;
         }
     }
 };
 
-const overpopulation = () => {
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[0].length; j++) {
-            let cellsBeside = contiguous(i, j);
-            if (cellsBeside > 3) {
-                board[i][j] = false;
-            }
+const copyBoardToBoardTwo = () => {
+    for (let j = 0; j < board.length; j++) {
+        for (let k = 0; k < board.length; k++) {
+            boardTwo[j][k] = board[j][k];
         }
     }
 };
-
-const reborn = () => {
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[0].length; j++) {
-            let cellsBeside = contiguous(i, j);
-            if (cellsBeside === 3) {
-                board[i][j] = true;
-            }
+const copyBoardTwoToBoard = () => {
+    for (let j = 0; j < board.length; j++) {
+        for (let k = 0; k < board.length; k++) {
+            board[j][k] = boardTwo[j][k];
         }
     }
 };
-
-loneliness();
-overpopulation();
-reborn();
+console.table(board);
+for (let i = 0; i < 5; i++) {
+    copyBoardToBoardTwo();
+    for (let j = 0; j < board.length; j++) {
+        for (let k = 0; k < board.length; k++) {
+            gameOfLife(j, k);
+        }
+    }
+    copyBoardTwoToBoard();
+    console.table(board);
+}
