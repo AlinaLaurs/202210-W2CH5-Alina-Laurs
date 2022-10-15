@@ -123,3 +123,7 @@ const reborn = () => {
         }
     }
 };
+
+loneliness();
+overpopulation();
+reborn();
