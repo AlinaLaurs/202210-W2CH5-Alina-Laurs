@@ -90,3 +90,36 @@ const contiguous = (y, x) => {
     }
     return count;
 };
+
+const loneliness = () => {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[0].length; j++) {
+            let cellsBeside = contiguous(i, j);
+            if (cellsBeside < 2) {
+                board[i][j] = false;
+            }
+        }
+    }
+};
+
+const overpopulation = () => {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[0].length; j++) {
+            let cellsBeside = contiguous(i, j);
+            if (cellsBeside > 3) {
+                board[i][j] = false;
+            }
+        }
+    }
+};
+
+const reborn = () => {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[0].length; j++) {
+            let cellsBeside = contiguous(i, j);
+            if (cellsBeside === 3) {
+                board[i][j] = true;
+            }
+        }
+    }
+};
