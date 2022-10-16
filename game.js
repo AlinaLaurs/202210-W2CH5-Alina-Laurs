@@ -1,4 +1,4 @@
-const board = [
+export const board = [
     [true, true, false, false, false, false, false, false, false, false],
     [true, true, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
@@ -11,7 +11,7 @@ const board = [
     [false, false, false, false, false, false, false, true, false, false],
 ];
 
-const boardTwo = [
+export const boardTwo = [
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
@@ -23,8 +23,8 @@ const boardTwo = [
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
 ];
-
-const contiguous = (y, x) => {
+// Esquinas
+export const contiguous = (y, x) => {
     let count = 0;
 
     if (y === 0 && x === 0) {
@@ -79,7 +79,7 @@ const contiguous = (y, x) => {
         return count;
     }
 
-    //  Superior
+    // Borde superior
     if (y === 0) {
         if (board[y][x + 1]) {
             count++;
@@ -99,7 +99,7 @@ const contiguous = (y, x) => {
         return count;
     }
 
-    // Lateral izquierdo
+    // Borde izquierdo
     if (x === 0) {
         if (board[y - 1][x]) {
             count++;
@@ -119,7 +119,7 @@ const contiguous = (y, x) => {
         return count;
     }
 
-    // Lateral derecho
+    // Borde derecho
     if (x === 9) {
         if (board[y - 1][x]) {
             count++;
@@ -140,7 +140,7 @@ const contiguous = (y, x) => {
         return count;
     }
 
-    // Inferior
+    // Borde inferior
     if (y === 9) {
         if (board[y - 1][x]) {
             count++;
@@ -187,7 +187,7 @@ const contiguous = (y, x) => {
     return count;
 };
 
-const gameOfLife = (y, x) => {
+export const gameOfLife = (y, x) => {
     // Cuando la célula está viva
     let cellsBeside = contiguous(y, x);
     if (board[y][x] === true) {
@@ -206,7 +206,7 @@ const gameOfLife = (y, x) => {
     }
 };
 
-const copyBoardToBoardTwo = () => {
+export const copyBoardToBoardTwo = () => {
     for (let j = 0; j < board.length; j++) {
         for (let k = 0; k < board.length; k++) {
             boardTwo[j][k] = board[j][k];
@@ -214,7 +214,7 @@ const copyBoardToBoardTwo = () => {
     }
 };
 
-const copyBoardTwoToBoard = () => {
+export const copyBoardTwoToBoard = () => {
     for (let j = 0; j < board.length; j++) {
         for (let k = 0; k < board.length; k++) {
             board[j][k] = boardTwo[j][k];
@@ -222,14 +222,21 @@ const copyBoardTwoToBoard = () => {
     }
 };
 
-console.table(board);
-for (let i = 0; i < 5; i++) {
-    copyBoardToBoardTwo();
-    for (let j = 0; j < board.length; j++) {
-        for (let k = 0; k < board.length; k++) {
-            gameOfLife(j, k);
-        }
-    }
-    copyBoardTwoToBoard();
+export const playGame = () => {
     console.table(board);
-}
+    // const = paramError new Error ("Error, los parámetros no son válidos.");
+    for (let i = 0; i < 5; i++) {
+        copyBoardToBoardTwo();
+        for (let j = 0; j < board.length; j++) {
+            for (let k = 0; k < board.length; k++) {
+                gameOfLife(j, k);
+            }
+        }
+        copyBoardTwoToBoard();
+        console.table(board);
+    }
+};
+
+setInterval(() => {
+    playGame();
+}, 1000);
