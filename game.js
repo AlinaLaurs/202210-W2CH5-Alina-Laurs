@@ -23,7 +23,7 @@ export const boardTwo = [
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
 ];
-// Esquinas
+
 export const contiguous = (y, x) => {
     let count = 0;
 
