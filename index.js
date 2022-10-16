@@ -79,6 +79,7 @@ const contiguous = (y, x) => {
         return count;
     }
 
+    //  Superior
     if (y === 0) {
         if (board[y][x + 1]) {
             count++;
@@ -97,6 +98,8 @@ const contiguous = (y, x) => {
         }
         return count;
     }
+
+    // Lateral izquierdo
     if (x === 0) {
         if (board[y - 1][x]) {
             count++;
@@ -115,6 +118,8 @@ const contiguous = (y, x) => {
         }
         return count;
     }
+
+    // Lateral derecho
     if (x === 9) {
         if (board[y - 1][x]) {
             count++;
@@ -134,6 +139,8 @@ const contiguous = (y, x) => {
 
         return count;
     }
+
+    // Inferior
     if (y === 9) {
         if (board[y - 1][x]) {
             count++;
@@ -150,9 +157,9 @@ const contiguous = (y, x) => {
         if (board[y - 1][x - 1]) {
             count++;
         }
-
         return count;
     }
+
     if (board[y - 1][x]) {
         count++;
     }
@@ -177,11 +184,11 @@ const contiguous = (y, x) => {
     if (board[y - 1][x - 1]) {
         count++;
     }
-
     return count;
 };
-// Cuando la celda está viva
+
 const gameOfLife = (y, x) => {
+    // Cuando la célula está viva
     let cellsBeside = contiguous(y, x);
     if (board[y][x] === true) {
         if (cellsBeside < 2) {
@@ -191,7 +198,7 @@ const gameOfLife = (y, x) => {
             boardTwo[y][x] = false;
         }
     }
-    // Cuando la celda está muerta
+    // Cuando la célula está muerta
     else {
         if (cellsBeside === 3) {
             boardTwo[y][x] = true;
@@ -206,6 +213,7 @@ const copyBoardToBoardTwo = () => {
         }
     }
 };
+
 const copyBoardTwoToBoard = () => {
     for (let j = 0; j < board.length; j++) {
         for (let k = 0; k < board.length; k++) {
@@ -213,6 +221,7 @@ const copyBoardTwoToBoard = () => {
         }
     }
 };
+
 console.table(board);
 for (let i = 0; i < 5; i++) {
     copyBoardToBoardTwo();
